@@ -1,0 +1,36 @@
+<nav class="bg-primary shadow-md py-2">
+  <div class="container mx-auto p-4 flex justify-between items-center">
+    <a href="#" class="text-lg font-bold text-white">Logo</a>
+    <ul class="flex justify-between items-center">
+      <li class="mr-4">
+        <a href="/user_toptracks" class="text-white hover:text-gray-400">Toptracks</a>
+      </li>
+      <li class="mr-4">
+        <a href="#" class="text-white hover:text-gray-400">Artist</a>
+      </li>
+      <li class="mr-4">
+        <a href="#" class="text-white hover:text-gray-400">Album</a>
+      </li>
+      <li>
+        <a href="#" class="text-white hover:text-gray-400">Stats</a>
+      </li>
+    </ul>
+    <ul class="flex justify-between items-center">
+      {% if user.is_authenticated %}
+      <li class=" text-white">
+        <p>Welcome, {{ user.username }}!</p>
+      </li>
+      <li>
+        <a href="/signout/" class="text-white hover:text-gray-400 text-white font-bold py-2 px-4 rounded">Signout</a>
+      </li>
+      {% else %}
+      <li>
+        <a href="/signin/" class="text-white hover:text-gray-400">Login</a>
+      </li>
+      <li>
+        <a href="#" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded">Sign Up</a>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>

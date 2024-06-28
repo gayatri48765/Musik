@@ -1,0 +1,12 @@
+/* styles.css */
+@layer utilities {
+    .bg-primary {
+        background-color: #1E40AF; /* Your custom blue color */
+    }
+    .text-secondary {
+        color: #10B981; /* Your custom green color */
+    }
+    .border-custom-red {
+        border-color: #EF4444; /* Your custom red color */
+    }
+}

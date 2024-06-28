@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- <script>
+            const csrftoken = window.CSRF_TOKEN;
+            const fragment = window.location.hash;
+            console.log(fragment);
+        fetch('/callback/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+          },
+          body: JSON.stringify({
+            fragment: fragment
+          })
+        })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error(error));
+         </script> -->
+         <!-- <script>
+            window.onload = function() {
+                const csrftoken = window.CSRF_TOKEN;
+                const fragment = window.location.hash;
+                console.log(fragment);
+                fetch('/call/', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken,
+                  },
+                  body: JSON.stringify({
+                    fragment: fragment
+                  })
+                })
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch(error => console.error(error));
+            };
+        </script> -->
+
+    </head>
+</html>
+
+ 
+<!--
+<script>
+    window.addEventListener('DOMContentLoaded', function() {
+        // Get the fragment identifier without the '#'
+        const fragmentString = window.location.hash.substring(1);
+        // Parse the parameters
+        const params = new URLSearchParams(fragmentString);
+        // Retrieve the access_token parameter
+        const accessToken = params.get('access_token');
+        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        console.log(accessToken);
+    
+        // Send the access token to your server using an AJAX request
+        const url = 'http://127.0.0.1:8000/callback/';
+        const data = { access_token: accessToken };
+    
+        fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' , 'X-CSRFToken': csrftoken },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+            // Handle the server's response
+            console.log('Access token sent to server');
+        })
+        .catch(error => {
+            // Handle errors
+            console.error('Error sending access token to server:', error);
+        });
+    });
+    </script>
+     -->

@@ -1,0 +1,34 @@
+{% extends "base.html" %} 
+
+{% block content %} 
+<div class="bg-gray-800 shadow-md py-4">
+    <div class="container mx-auto p-4 flex justify-center items-center">
+      <div class="bg-white shadow-md p-4 rounded">
+        <h2 class="text-lg font-bold text-gray-600">Register</h2>
+        <form class="flex flex-col" action="/register/" method="post">
+            {% csrf_token %}
+            <label for="username" class="text-gray-400">Username:</label>
+            <input type="text" id="username" name="username" class="bg-gray-100 border border-gray-400 rounded p-2 w-full" placeholder="Username">
+            <br>
+          <label for="fname" class="text-gray-400">First Name:</label>
+          <input type="text" id="fname" name="fname" class="bg-gray-100 border border-gray-400 rounded p-2 w-full" placeholder="First Name">
+          <br>
+          <label for="lname" class="text-gray-400">Last Name:</label>
+          <input type="text" id="lname" name="lname" class="bg-gray-100 border border-gray-400 rounded p-2 w-full" placeholder="Last Name">
+          <br>
+          <label for="email" class="text-gray-400">Email:</label>
+          <input type="email" id="email" name="email" class="bg-gray-100 border border-gray-400 rounded p-2 w-full" placeholder="example@example.com">
+          <br>
+          <label for="password" class="text-gray-400">Password:</label>
+          <input type="password" id="password" name="pass1" class="bg-gray-100 border border-gray-400 rounded p-2 w-full" placeholder="Password">
+          <br>
+          <label for="confirm_password" class="text-gray-400">Confirm Password:</label>
+          <input type="password" id="confirm_password" name="pass2" class="bg-gray-100 border border-gray-400 rounded p-2 w-full" placeholder="Confirm Password">
+          <br>
+          <button class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded">Register</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+{% endblock %}

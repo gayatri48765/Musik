@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://sdk.scdn.co/spotify-player.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="{% static 'styles.css' %}" rel="stylesheet">
+</head>
+<body style="margin:0; padding:0; background:#121212; font-family:Arial, sans-serif; color:#fff;">
+    <div class="sidebar">
+        <!-- Spotify Logo -->
+        <div class="logo-container">
+            <img src="https://storage.googleapis.com/pr-newsroom-wp/1/2018/11/Spotify_Logo_RGB_Green.png" alt="Spotify Logo" style="width: 100%; height: auto; padding: 20px; box-sizing: border-box;">
+        </div>
+
+        <!-- Welcome User -->
+        <div class="sidebar-section">
+            <span style="margin-left: 14px;" class="sidebar-link-icon">👤</span>
+            <b>Welcome, {{user.username}}</b>
+            <br>
+            <br>
+
+            <a href="/logout">
+                <span class="sidebar-link-icon">↪️</span>
+                <b>Logout</b>
+            </a>
+        </div>
+
+        <!-- Top section of the sidebar -->
+        <div class="sidebar-section">
+            <a href="/" class="sidebar-link active">
+                <span class="sidebar-link-icon">🏠</span>
+                Home
+            </a>
+            <a href="/search" class="sidebar-link">
+                <span class="sidebar-link-icon">🔍</span>
+                Search
+            </a>
+        </div>
+
+    </div>
+    <!-- <nav class="bg-gray-800 shadow-md py-2"> -->
+        <!-- {% include "components/navbar.html" %}  -->
+    <!-- </nav> -->
+    {% block content %} 
+    
+    {% endblock %} 
+    <!-- {% include "components/footer.html" %}  -->
+</body>
+</html>
