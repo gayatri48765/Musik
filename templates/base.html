@@ -14,41 +14,63 @@
     <div class="sidebar">
         <!-- Spotify Logo -->
         <div class="logo-container">
-            <img src="https://storage.googleapis.com/pr-newsroom-wp/1/2018/11/Spotify_Logo_RGB_Green.png" alt="Spotify Logo" style="width: 100%; height: auto; padding: 20px; box-sizing: border-box;">
+           <img class="w-36" src="{% static 'logo3.jpeg' %}">
         </div>
 
         <!-- Welcome User -->
         <div class="sidebar-section">
-            <span style="margin-left: 14px;" class="sidebar-link-icon">👤</span>
+      {% if user.is_authenticated %}
+            <!-- <span style="margin-left: 14px;" class="sidebar-link-icon">👤</span> -->
             <b>Welcome, {{user.username}}</b>
             <br>
             <br>
-
-            <a href="/logout">
-                <span class="sidebar-link-icon">↪️</span>
+            <a href="/signout">
+                <!-- <span class="sidebar-link-icon">↪️</span> -->
                 <b>Logout</b>
             </a>
+            {% else %}
+<!-- ↪ -->
+            <a href="/signin">
+                <span class="sidebar-link-icon">
+                    <!-- <svg class="text-red-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M217.9 105.9L340.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L217.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1L32 320c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM352 416l64 0c17.7 0 32-14.3 32-32l0-256c0-17.7-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32l64 0c53 0 96 43 96 96l0 256c0 53-43 96-96 96l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32z"/></svg> -->
+                </span>
+                <b>SignIn</b>
+            </a>
+            <a href="/register">
+                <!-- <span class="sidebar-link-icon">↪️</span> -->
+                <b>SignUp</b>
+            </a>
+            {% endif %}
+
         </div>
 
         <!-- Top section of the sidebar -->
         <div class="sidebar-section">
-            <a href="/" class="sidebar-link active">
-                <span class="sidebar-link-icon">🏠</span>
+            <a href="/home" class="sidebar-link active">
+                <!-- <span class="sidebar-link-icon">🏠</span> -->
                 Home
             </a>
-            <a href="/search" class="sidebar-link">
+            <!-- <a href="/search" class="sidebar-link">
                 <span class="sidebar-link-icon">🔍</span>
                 Search
-            </a>
+            </a> -->
+        <a href="/liked_songs" class="sidebar-link">
+            Liked Songs
+        </a>
+        <a href="/user_playlist" class="sidebar-link">
+            Playist
+        </a>
+        <a href="/user_artists" class="sidebar-link">
+            Artist
+        </a>
+        <a href="/user-albums" class="sidebar-link">
+            Albums
+        </a>
         </div>
 
     </div>
-    <!-- <nav class="bg-gray-800 shadow-md py-2"> -->
-        <!-- {% include "components/navbar.html" %}  -->
-    <!-- </nav> -->
     {% block content %} 
     
     {% endblock %} 
-    <!-- {% include "components/footer.html" %}  -->
 </body>
 </html>

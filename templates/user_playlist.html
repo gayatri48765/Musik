@@ -1,0 +1,19 @@
+{% extends "base.html" %} 
+
+{% block content %} 
+
+<div style="margin-left:240px; padding:20px;">
+        <div class="m-auto justify-center content-center">
+            <img class="w-64 h-64" src="https://scontent.fnag1-1.fna.fbcdn.net/v/t39.30808-6/348419745_1004082603912534_5349720289263210325_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=5f2048&_nc_ohc=xYlF_f7pco0Q7kNvgGa3i_R&_nc_ht=scontent.fnag1-1.fna&oh=00_AYANc8VSrq7liHZ2PKjd_1EyoUowEzRBSo3CoIRQfI1d2g&oe=667B0F29" srcset="">
+            
+            <div class="flex flex-col h-screen-half overflow-y-scroll">
+                {% for t in track %}
+                <p>
+                    {{t.name}} 
+                </p>
+                {% endfor %}
+            </div>
+            </div>
+
+</div>
+{% endblock %}

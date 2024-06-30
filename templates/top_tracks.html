@@ -2,18 +2,6 @@
 
 {% block content %} 
 
-
-<script>
-    document.getElementById("play-button").addEventListener("click", () => {
-        fetch("{% url 'start_playback' song_id=songId %}")
-            .then(response => {
-                console.log("Playback started");
-            })
-            .catch(error => {
-                console.error("Error starting playback:", error);
-            });
-    });
-</script>
 <div class="h-screen-half">
     <div class="flex flex-row m-auto justify-center content-center">
     <img class="w-64 h-64"
@@ -22,8 +10,7 @@
     <div class="flex flex-col h-screen-half overflow-y-scroll">
         {% for t in track %}
         <ul>
-            <!-- <a href="https://open.spotify.com/track/{{t.track_id}}"> -->
-                <button id="play-button" class="btn btn-primary" data-song-id="{{t.track_id}}"></button>
+                <iframe src="https://open.spotify.com/embed/track/{{t.track_id}}" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
                 {{ t.name }}
             </li>
         </ul>

@@ -221,7 +221,7 @@
   .sidebar-link-icon {
     margin-right: 15px;
     display: inline-block;
-    width: 24px; /* Adjust size as needed */
+    width: 16px; /* Adjust size as needed */
     text-align: center;
   }
   
@@ -494,11 +494,9 @@
     }
 
 .artist-card {
-    width: 200px;
-    height: 255px;
+    height: 80px;
     background-color: #181818;
     border-radius: 10px;
-    padding: 16px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.5);
     text-align: center;
     position: relative;
