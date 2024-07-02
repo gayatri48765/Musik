@@ -5,11 +5,11 @@
 <div class="ml-64 p-5">
     <div class="flex flex-row p-6">
         <div>
-           <img class="w-36" src="{% static 'likedSong.webp' %}">
+           <img class="w-32" src="{% static 'likedSong.webp' %}">
         </div>
         <div class="flex flex-col pl-6 pt-2">
             <h1 class="text-6xl">
-                Saved Albums
+                Artists Followed
             </h1>
             <h6>
                 {{user.username}}
@@ -18,14 +18,12 @@
     </div>
    
     <div class="mt-0 p-0 overflow-y-auto whitespace-nowrap grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {% for albm in albums %}
-        <a href="{{albm.url}}" class="artist-card bg-gray-800 rounded-lg shadow-md text-center p-5">
-            <img src="{{albm.image}}" alt="Card Image" class="w-24 h-24 rounded-full mx-auto mb-2 object-cover">
-            <p class="text-gray-300">{{albm.name}}</p>
-            <p>{{albm.artist}}</p>
+        {% for artist in artists %}
+        <a href="{{artist.url}}" class="artist-card bg-gray-800 rounded-lg shadow-md text-center p-5">
+            <img src="{{artist.image}}" alt="Card Image" class="w-24 h-24 rounded-full mx-auto mb-2 object-cover">
+          <p class="text-gray-300">{{artist.name}}</p>
         </a>
         {% endfor %}
       </div>
 </div>
 {% endblock %}
-

@@ -55,23 +55,54 @@ def home(request):
         print("The access token is sinvalid or has expired.\n\n")
         # Set the username
         # username = credentials.username
-    response = sp.current_user_top_tracks(limit=50, offset=0, time_range="medium_term")
-    top_tracks = response["items"]
-    tracks = []
-    for track in top_tracks:
-        track_info = {
-            "name": track["name"],
-            "artist": track["artists"][0]["name"],
-            "album": track["album"]["name"],
-            "image":track['album']['images'][1]['url'],
-            "track_id": track['id']
-        }
-        tracks.append(track_info)
+    search=[]
+    tracks=[]
+    if request.method == 'GET':
+        response = sp.current_user_top_tracks(limit=50, offset=0, time_range="medium_term")
+        top_tracks = response["items"]
+        tracks = []
+        for track in top_tracks:
+            track_info = {
+                "name": track["name"],
+                "artist": track["artists"][0]["name"],
+                "album": track["album"]["name"],
+                "image":track['album']['images'][1]['url'],
+                "track_id": track['id']
+            }
+            tracks.append(track_info)
         # print("\n\n\n\nLIST OF TRACKS:",top_tracks[0]['album']['images'][1]['url'])
         # print(json.dumps(top_tracks[0], sort_keys=True, indent=4))
         # print("TRACK ID")
         # print(tracks[0]['track_id'])
-    return render(request, 'home.html', {'access_token': access_token,'track':tracks})
+    return render(request, 'home.html', {'access_token': access_token,'track':tracks, 'search':search})
+
+
+def search(request):
+    access_token = request.session.get("access_token")
+    sp = spotipy.Spotify(auth=access_token)
+    response = sp.me()
+    search = []
+    if request.method == 'POST':
+        search_query = request.POST.get('query', '')
+        print("SEARCH!!!!!!")
+        print(search_query)
+
+        if search_query:
+            response = sp.search(q=search_query, type='show', limit=1)
+            result = response['shows']['items']
+            # for srch in result:
+            #     track_info = {
+            #     "name": srch["name"],
+            #     "artist": srch["artists"][0]["name"],
+            #     "album": srch["album"]["name"],
+            #     "image": srch['album']['images'][1]['url'],
+            #     "track_id": srch['id']
+            # }
+            # search.append(track_info)
+    return HttpResponse(result)
+    # return render(request, 'home.html', {'search':search})
+    
+
 
 def signout(request):
     logout(request)
@@ -181,19 +212,20 @@ def get_playlist_user(request):
         else:
             print("The access token is invalid or has expired.\n\n")
 
-        response = sp.current_user_top_tracks(limit=50, offset=0, time_range="medium_term")
-        top_tracks = response["items"]
-        tracks = []
-        for track in top_tracks:
-            track_info = {
-                "name": track["name"],
-                "artist": track["artists"][0]["name"],
-                "album": track["album"]["name"],
-                "image":track['album']['images'][1]['url'],
-                "track_id": track['id']
+        response = sp.current_user_playlists(limit=11, offset=0)
+        playlists = response["items"]
+        playlist = []
+        for plst in playlists:
+            lst_info = {
+                "name": plst["name"],
+                "owner": plst["owner"],
+                "href": plst['id'],
+                "image":plst['images'][0]['url'],
+                "total_songs": plst["tracks"]["total"]
             }
-            tracks.append(track_info)
-        return render(request, 'user_playlist.html', {'track': tracks})
+            playlist.append(lst_info)
+        # return HttpResponse(playlists)
+        return render(request, 'user_playlist.html', {'playlists': playlist})
     else:
         error = "An error has occurred"
         return error
@@ -208,18 +240,61 @@ def get_user_albums(request):
         else:
             print("The access token is invalid or has expired.\n\n")
 
-        response = sp.current_user_saved_albums(limit=50, offset=0)
+        response = sp.current_user_saved_albums(limit=1, offset=0)
         albums_info = response['items']
         albums = []
         for album in albums_info:
             album_info = {
                 "name": album["album"]["name"],
                 "artist": album["album"]["artists"][0]["name"],
+                "image": album["album"]["images"][1]["url"],
+                "url":album["album"]["external_urls"]["spotify"]
 
             }
             albums.append(album_info)
+        # return HttpResponse(albums_info)
         return render(request, 'user_albums.html', {'albums': albums})
 
     else:
         error = "An error has occurred"
         return error
+
+def get_user_artists(request):
+    if request.method == 'GET':
+        access_token = request.session.get("access_token")
+        sp = spotipy.Spotify(auth=access_token)
+        response = sp.me()
+        if response is not None:
+            print("The access token is valid.\n\n")
+        else:
+            print("The access token is invalid or has expired.\n\n")
+
+        response = sp.current_user_top_artists(limit=15, offset=0)
+        artist_record = response['items']
+        artists = []
+        for artist in artist_record:
+            artist_info = {
+                "name": artist["name"],
+                "url": artist["external_urls"]["spotify"],
+                "image": artist["images"][2]["url"],
+            }
+            artists.append(artist_info)
+        return render(request, 'user_artists.html', {'artists':artists})
+
+    else:
+        error = "An error has occurred"
+        return error
+
+def song_detail(request, track_id):
+    access_token = request.session.get("access_token")
+    sp = spotipy.Spotify(auth=access_token)
+
+    # Fetch the song details using the track_id
+    track = sp.track(track_id)
+
+    context = {
+        'access_token': access_token,
+        'track': track,
+    }
+
+    return render(request, 'song_detail.html', context)

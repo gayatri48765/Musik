@@ -4,11 +4,11 @@
 
     <div style="margin-left:240px; padding:20px;">
         <header class="header-container">
-            <form action="search" method="POST">
+            <form action="{% url 'search' %}" method="POST">
                 {% csrf_token %}
 
                 <div class="search-bar" style="width: 390px;">
-                    <input type="search" name="search_query" placeholder="What do you want to listen to?" aria-label="Search">
+                    <input type="search" name="query" placeholder="What do you want to listen to?" aria-label="Search">
                     <button type="submit" aria-label="Search">
                         🔍
                     </button>
@@ -19,22 +19,41 @@
 
 
         <main style="padding-top:20px;">
+           
+        
+            {% if search %}
+                <h2>Search Results</h2>
+                <ul>
+                    {% for srch in search %}
+                        <li>
+                            <img src="{{ track.image }}" alt="{{ track.name }}">
+                            <h3>{{ srch.name }}</h3>
+                            <p>Artist: {{ srch.artist }}</p>
+                            <p>Album: {{ srch.album }}</p>
+                            <!-- <iframe src="https://open.spotify.com/embed/track/{{ srch.track_id }}" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe> -->
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+
             <div>
                 Here comes the top 5 generes
             </div>
             <section class=" mt-0 p-0 h-96 overflow-y-auto whitespace-nowrap flex flex-col">
                 <!-- Artist Card -->
                 {% for t in track %}
-                <div class="artist-card">
-                <iframe src="https://open.spotify.com/embed/track/{{t.track_id}}" frameborder="0" class="w-full h-full" allowtransparency="true" allow="encrypted-media"></iframe>
-                    
-                    <!-- <a href="/profile/{{artist.2}}" style="text-decoration: none;">
-                        <img src="{{artist.1}}" alt="{{artist.0}}" style="width:150px; height:150px; border-radius:50%;">
-                        <div class="artist-info">
-                            <div class="artist-name">{{ t.name }}</div>
-                            <div class="artist-title">Artist</div>
+                <div class="">
+                    <a class="flex items-center p-2 hover:bg-gray-800 rounded-md" href="{% url 'song_detail' t.track_id %}">
+                        <img class="w-12 h-12 rounded-md mr-4" src="{{ t.image }}" alt="{{ t.name }}">
+                        <div class="flex-1">
+                          <p class="text-white font-medium">{{ t.name }}</p>
+                          <p class="text-gray-400">{{ t.artist }}</p>
                         </div>
-                    </a> -->
+                        <button class="bg-gray-600 hover:bg-grey-200 text-white rounded-full p-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="10px" fill="white" viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg>
+                          </button>
+                      </a>
+                    </a>
                 </div>
                 {% endfor %}
             </section>
@@ -73,6 +92,7 @@
             </div>
             {% endfor %}
         </div> -->
+        {% endif %}
 
         </main>
 

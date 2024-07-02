@@ -4,7 +4,6 @@
 {% load static %}
 
 <div class="ml-64 p-5">
-    <!-- <div class="flex flex-row m-auto justify-center content-center"> -->
     <div class="flex flex-row p-6">
         <div>
            <img class="w-36" src="{% static 'likedSong.webp' %}">
@@ -21,16 +20,22 @@
     </div>
     <div class="mt-0 p-0 overflow-y-auto whitespace-nowrap flex flex-col h-96">
         {% for t in track %}
-        <div class="artist-card">
-            <iframe src="https://open.spotify.com/embed/track/{{t.track_id}}" 
-                class="h-full w-full" frameborder="0" allowtransparency="true"
-                ="encrypted-media">
-            </iframe>
+        <div class="">
+            <a class="flex items-center p-2 hover:bg-gray-800 rounded-md" href="{% url 'song_detail' t.track_id %}">
+                <img class="w-12 h-12 rounded-md mr-4" src="{{ t.image }}" alt="{{ t.name }}">
+                <div class="flex-1">
+                  <p class="text-white font-medium">{{ t.name }}</p>
+                  <p class="text-gray-400">{{ t.artist }}</p>
+                </div>
+                <button class="bg-gray-600 hover:bg-grey-200 text-white rounded-full p-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="10px" fill="white" viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg>
+                  </button>
+              </a>
+            </a>
         </div>
-        {% endfor %}
+{% endfor %}
     </div>
     
-    <!-- </div> -->
 </div>
 {% endblock %}
 
